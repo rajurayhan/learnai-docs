@@ -294,6 +294,57 @@
   .cta-bottom h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; margin-bottom: 16px; }
   .cta-bottom p { color: rgba(255,255,255,.55); margin-bottom: 32px; }
 
+  /* ── WISHLIST SOCIAL POST ── */
+  .wishlist-post-section { padding: 60px 0 80px; }
+  .wishlist-post-card {
+    max-width: 520px; margin: 0 auto;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+  }
+  .wishlist-post-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .wishlist-post-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .wishlist-post-meta { flex: 1; }
+  .wishlist-post-name { font-weight: 800; font-size: 1rem; }
+  .wishlist-post-handle { font-size: .8rem; color: rgba(255,255,255,.45); }
+  .wishlist-post-body {
+    padding: 20px; font-size: .95rem; line-height: 1.65;
+    color: rgba(255,255,255,.85);
+  }
+  .wishlist-post-body .highlight { color: #a5b4fc; font-weight: 700; }
+  .wishlist-post-actions {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.15);
+  }
+  .btn-copy-post {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: none; border-radius: 10px; padding: 10px 20px;
+    color: white; font-weight: 700; font-size: .88rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-copy-post:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(79,70,229,.4); }
+  .btn-copy-post.copied { background: #059669; }
+  .wishlist-share-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .wishlist-share-links a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.7); text-decoration: none; font-size: 1.1rem;
+    transition: background .2s, color .2s;
+  }
+  .wishlist-share-links a:hover { background: rgba(129,140,248,.25); color: #a5b4fc; }
+
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid rgba(255,255,255,.07);
@@ -371,7 +422,7 @@
 <div class="container fade-in">
   <div class="counter-row">
     <div class="counter-item">
-      <div class="counter-num" id="cnt1">0</div>
+      <div class="counter-num" id="cnt1">200+</div>
       <div class="counter-label">Waitlist এ আছে</div>
     </div>
     <div class="counter-item">
@@ -666,6 +717,39 @@
   </div>
 </section>
 
+<!-- WISHLIST SOCIAL POST -->
+<section class="section wishlist-post-section">
+  <div class="container fade-in">
+    <h2 class="section-title">Wishlist এ আছো? পোস্ট শেয়ার করো 📱</h2>
+    <p class="section-sub">এই পোস্টটা copy করে Facebook, LinkedIn বা Twitter এ দাও — বন্ধুরাও join করুক!</p>
+    <div class="wishlist-post-card">
+      <div class="wishlist-post-header">
+        <div class="wishlist-post-avatar">🧠</div>
+        <div class="wishlist-post-meta">
+          <div class="wishlist-post-name">LearnAI BD</div>
+          <div class="wishlist-post-handle">Bangladesh এর প্রথম AI Programming Mentor</div>
+        </div>
+      </div>
+      <div class="wishlist-post-body" id="wishlistPostText">
+        আমি <span class="highlight">LearnAI BD</span> এর Early Access waitlist এ join করেছি। 🚀<br><br>
+        AI দিয়ে programming শেখা — ৩ মাসের roadmap, daily tracking, assignment review, আর job পর্যন্ত সহায়তা। সব বাংলায়।<br><br>
+        যারা শিখতে চাও, link এ গিয়ে নাম রেখে আসো — একদম ফ্রি।<br><br>
+        🔗 <span id="wishlistPostUrl"></span>
+      </div>
+      <div class="wishlist-post-actions">
+        <button type="button" class="btn-copy-post" id="btnCopyPost" onclick="copyWishlistPost()">
+          <span id="copyPostIcon">📋</span> <span id="copyPostLabel">Copy পোস্ট</span>
+        </button>
+        <div class="wishlist-share-links">
+          <a id="shareFb" href="#" target="_blank" rel="noopener noreferrer" title="Facebook এ শেয়ার করো">f</a>
+          <a id="shareTw" href="#" target="_blank" rel="noopener noreferrer" title="Twitter এ শেয়ার করো">𝕏</a>
+          <a id="shareLi" href="#" target="_blank" rel="noopener noreferrer" title="LinkedIn এ শেয়ার করো">in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div style="font-size:1.5rem; margin-bottom:8px;">🧠</div>
@@ -697,13 +781,19 @@ const obs = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
 // Waitlist — stored on server
-let count = 0;
+let count = 200;
+function formatCount(c) {
+  return c <= 200 ? '২০০+' : c.toLocaleString('bn-BD') + '+';
+}
+function updateCountDisplay() {
+  const el = document.getElementById('cnt1');
+  if (el) el.textContent = formatCount(count);
+}
 function loadCount() {
   fetch('/wishlist/count').then(r => r.json()).then(d => {
-    count = d.count || 0;
-    const el = document.getElementById('cnt1');
-        if (el) el.textContent = count.toLocaleString('bn-BD');
-  }).catch(() => {});
+    count = Math.max(200, d.count || 0);
+    updateCountDisplay();
+  }).catch(function() { updateCountDisplay(); });
 }
 loadCount();
 
@@ -721,8 +811,8 @@ function joinWaitlist() {
   }).then(async r => {
     const d = await r.json().catch(() => ({}));
     if (r.ok || d.success) {
-      count = d.count != null ? d.count : count + 1;
-      document.getElementById('cnt1').textContent = count.toLocaleString('bn-BD');
+      count = d.count != null ? Math.max(200, d.count) : count + 1;
+      updateCountDisplay();
       document.getElementById('inputRow').style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
     } else { alert('আবার চেষ্টা করো'); if (btn) { btn.disabled = false; btn.textContent = '🚀 Early Access নাও'; } }
@@ -744,8 +834,8 @@ function joinBottom() {
   }).then(async r => {
     const d = await r.json().catch(() => ({}));
     if (r.ok || d.success) {
-      count = d.count != null ? d.count : count + 1;
-      document.getElementById('cnt1').textContent = count.toLocaleString('bn-BD');
+      count = d.count != null ? Math.max(200, d.count) : count + 1;
+      updateCountDisplay();
       document.getElementById('bottomForm').style.display = 'none';
       document.getElementById('bottomSuccess').style.display = 'block';
     } else { alert('আবার চেষ্টা করো'); if (btn) { btn.disabled = false; btn.textContent = '🚀 Join Waitlist'; } }
@@ -757,6 +847,69 @@ function joinBottom() {
 function scrollToForm() {
   document.getElementById('formWrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
   document.getElementById('emailInput').focus();
+}
+
+// Wishlist post: set URL, share links, and copy
+(function() {
+  var url = (window.location.origin + window.location.pathname).replace(/\/$/, '') || 'https://learnai-bd.vercel.app';
+  var el = document.getElementById('wishlistPostUrl');
+  if (el) el.textContent = url;
+  var tweetText = encodeURIComponent('আমি LearnAI BD এর waitlist এ join করেছি — AI দিয়ে programming শেখো! ' + url);
+  var fb = document.getElementById('shareFb');
+  var tw = document.getElementById('shareTw');
+  var li = document.getElementById('shareLi');
+  if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+  if (tw) tw.href = 'https://twitter.com/intent/tweet?text=' + tweetText;
+  if (li) li.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url);
+})();
+
+function getWishlistPostText() {
+  var url = (window.location.origin + window.location.pathname).replace(/\/$/, '') || 'https://learnai-bd.vercel.app';
+  return 'আমি LearnAI BD এর Early Access waitlist এ join করেছি। 🚀\n\n' +
+    'AI দিয়ে programming শেখা — ৩ মাসের roadmap, daily tracking, assignment review, আর job পর্যন্ত সহায়তা। সব বাংলায়।\n\n' +
+    'যারা শিখতে চাও, link এ গিয়ে নাম রেখে আসো — একদম ফ্রি।\n\n🔗 ' + url;
+}
+
+function copyWishlistPost() {
+  var text = getWishlistPostText();
+  var btn = document.getElementById('btnCopyPost');
+  var icon = document.getElementById('copyPostIcon');
+  var label = document.getElementById('copyPostLabel');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      if (btn) { btn.classList.add('copied'); }
+      if (icon) icon.textContent = '✓';
+      if (label) label.textContent = 'Copied!';
+      setTimeout(function() {
+        if (btn) btn.classList.remove('copied');
+        if (icon) icon.textContent = '📋';
+        if (label) label.textContent = 'Copy পোস্ট';
+      }, 2000);
+    }).catch(function() { fallbackCopy(text, btn, icon, label); });
+  } else {
+    fallbackCopy(text, btn, icon, label);
+  }
+}
+
+function fallbackCopy(text, btn, icon, label) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    if (btn) btn.classList.add('copied');
+    if (icon) icon.textContent = '✓';
+    if (label) label.textContent = 'Copied!';
+    setTimeout(function() {
+      if (btn) btn.classList.remove('copied');
+      if (icon) icon.textContent = '📋';
+      if (label) label.textContent = 'Copy পোস্ট';
+    }, 2000);
+  } catch (e) {}
+  document.body.removeChild(ta);
 }
 
 // FAQ
