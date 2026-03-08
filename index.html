@@ -170,6 +170,19 @@
   .pain-card p { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.6; }
 
   /* ── HOW IT WORKS ── */
+  .video-wrap {
+    max-width: 720px; margin: 0 auto 40px;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,.3);
+  }
+  .video-wrap video,
+  .video-wrap iframe {
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 16 / 9; vertical-align: middle;
+  }
+  .video-wrap iframe { border: none; }
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
   .step {
     background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
@@ -410,6 +423,11 @@
   <div class="container fade-in">
     <h2 class="section-title">কীভাবে কাজ করে? 🤔</h2>
     <p class="section-sub">৪টা simple step — AI বাকি সব করে দেয়</p>
+    <div class="video-wrap">
+      <video src="/how-it-works.mp4" controls playsinline preload="metadata">
+        আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+      </video>
+    </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
