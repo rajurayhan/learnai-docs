@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount source for live reload (node_modules from image preserved)
+      - .:/app
+      - /app/node_modules  # prevent host node_modules from overwriting container's
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host 0.0.0.0
