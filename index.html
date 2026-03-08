@@ -345,6 +345,35 @@
   }
   .wishlist-share-links a:hover { background: rgba(129,140,248,.25); color: #a5b4fc; }
 
+  /* ── SOCIAL COPY (Facebook / LinkedIn) ── */
+  .social-copy-section { padding: 50px 0 80px; }
+  .social-copy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .social-copy-card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .social-copy-card h3 {
+    padding: 16px 20px; margin: 0; font-size: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .social-copy-card .card-body {
+    padding: 16px 20px; flex: 1;
+    font-size: .85rem; line-height: 1.6; color: rgba(255,255,255,.75);
+    white-space: pre-wrap; max-height: 220px; overflow-y: auto;
+  }
+  .social-copy-card .card-actions { padding: 14px 20px; border-top: 1px solid rgba(255,255,255,.08); }
+  .btn-copy-social {
+    width: 100%; padding: 10px 16px; border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: none; color: white; font-weight: 700; font-size: .88rem; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-copy-social:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(79,70,229,.4); }
+  .btn-copy-social.copied { background: #059669; }
+
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid rgba(255,255,255,.07);
@@ -750,6 +779,46 @@
   </div>
 </section>
 
+<!-- FACEBOOK / LINKEDIN POST COPY -->
+<section class="section social-copy-section">
+  <div class="container fade-in">
+    <h2 class="section-title">Facebook & LinkedIn এ পোস্ট শেয়ার করো 📢</h2>
+    <p class="section-sub">নিচের যেকোনো একটা copy করে paste করো — লিংক অটো যুক্ত থাকবে</p>
+    <div class="social-copy-grid">
+      <div class="social-copy-card">
+        <h3>📘 Facebook</h3>
+        <div class="card-body" id="facebookPostPreview">🧠 বাংলাদেশের প্রথম AI Programming Mentor — LearnAI BD
+
+যা শিখতে চাও, AI তোমার mentor।
+৩ মাসের roadmap, daily tracking, assignment review, job পর্যন্ত সহায়তা — সব বাংলায়।
+
+Early Access একদম ফ্রি। Link এ গিয়ে join করো 👇</div>
+        <div class="card-actions">
+          <button type="button" class="btn-copy-social" id="btnCopyFb" onclick="copySocialPost('facebook')">
+            <span id="fbIcon">📋</span> <span id="fbLabel">Copy for Facebook</span>
+          </button>
+        </div>
+      </div>
+      <div class="social-copy-card">
+        <h3>💼 LinkedIn</h3>
+        <div class="card-body" id="linkedinPostPreview">Excited to share: LearnAI BD — Bangladesh's first AI-powered Programming Mentor. 🧠
+
+→ Personalized 3-month roadmaps
+→ Daily progress tracking & AI feedback
+→ Assignment review & job-readiness support
+→ All in Bangla
+
+Early access is free. Link in comments / below. 👇</div>
+        <div class="card-actions">
+          <button type="button" class="btn-copy-social" id="btnCopyLi" onclick="copySocialPost('linkedin')">
+            <span id="liIcon">📋</span> <span id="liLabel">Copy for LinkedIn</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div style="font-size:1.5rem; margin-bottom:8px;">🧠</div>
@@ -910,6 +979,66 @@ function fallbackCopy(text, btn, icon, label) {
     }, 2000);
   } catch (e) {}
   document.body.removeChild(ta);
+}
+
+function getLandingUrl() {
+  return (window.location.origin + window.location.pathname).replace(/\/$/, '') || 'https://learnai-bd.vercel.app';
+}
+
+function getFacebookPostText() {
+  var url = getLandingUrl();
+  return '🧠 বাংলাদেশের প্রথম AI Programming Mentor — LearnAI BD\n\n' +
+    'যা শিখতে চাও, AI তোমার mentor।\n' +
+    '৩ মাসের roadmap, daily tracking, assignment review, job পর্যন্ত সহায়তা — সব বাংলায়।\n\n' +
+    'Early Access একদম ফ্রি। Link এ গিয়ে join করো 👇\n' + url;
+}
+
+function getLinkedInPostText() {
+  var url = getLandingUrl();
+  return "Excited to share: LearnAI BD — Bangladesh's first AI-powered Programming Mentor. 🧠\n\n" +
+    '→ Personalized 3-month roadmaps\n' +
+    '→ Daily progress tracking & AI feedback\n' +
+    '→ Assignment review & job-readiness support\n' +
+    '→ All in Bangla\n\n' +
+    'Early access is free. Link below. 👇\n' + url;
+}
+
+function copySocialPost(platform) {
+  var text = platform === 'facebook' ? getFacebookPostText() : getLinkedInPostText();
+  var btn = document.getElementById(platform === 'facebook' ? 'btnCopyFb' : 'btnCopyLi');
+  var icon = document.getElementById(platform === 'facebook' ? 'fbIcon' : 'liIcon');
+  var label = document.getElementById(platform === 'facebook' ? 'fbLabel' : 'liLabel');
+  var done = function() {
+    if (btn) btn.classList.add('copied');
+    if (icon) icon.textContent = '✓';
+    if (label) label.textContent = 'Copied!';
+    setTimeout(function() {
+      if (btn) btn.classList.remove('copied');
+      if (icon) icon.textContent = '📋';
+      if (label) label.textContent = platform === 'facebook' ? 'Copy for Facebook' : 'Copy for LinkedIn';
+    }, 2000);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
 }
 
 // FAQ
