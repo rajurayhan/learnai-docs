@@ -16,7 +16,7 @@ export default function Tech() {
     <div className="space-y-4">
       <div className="bg-gradient-to-r from-purple-700 to-indigo-700 rounded-2xl p-4 text-white">
         <h2 className="text-lg font-black">🧱 Technical Architecture</h2>
-        <p className="text-purple-300 text-xs mt-1">Laravel 11 + Vue 3 + Inertia.js + MySQL + Redis + Docker</p>
+        <p className="text-purple-300 text-xs mt-1">Laravel 11 + Vue 3 + Inertia.js + MySQL + Redis + Docker · Mobile (future): NativePHP</p>
       </div>
       <div className="flex gap-1.5 flex-wrap">
         {tabs.map((t) => (
@@ -38,8 +38,9 @@ export default function Tech() {
             { layer: "Database", color: "green", icon: "🗄️", items: [{ n: "MySQL 8", r: "Primary DB", w: "Relational data, transactions" }, { n: "Redis", r: "Cache+Queue", w: "AI cache, sessions, jobs" }, { n: "Scout", r: "Search", w: "Course/user search" }] },
             { layer: "DevOps", color: "sky", icon: "🐳", items: [{ n: "Docker", r: "Containers", w: "Consistent dev & deploy environment" }, { n: "Docker Compose", r: "Orchestration", w: "Multi-service local setup, single command" }] },
             { layer: "External", color: "amber", icon: "🤖", items: [{ n: "Claude API", r: "AI Engine", w: "Course plan, review, analysis" }, { n: "SSLCommerz", r: "BD Payment", w: "bKash, Nagad, Card" }, { n: "Mailgun", r: "Email", w: "Transactional emails" }] },
+            { layer: "Mobile (future)", color: "teal", icon: "📱", items: [{ n: "NativePHP", r: "Native apps", w: "iOS & Android with PHP/Laravel — same stack, no rewrite. nativephp.com" }] },
           ].map((layer, i) => {
-            const cls = { indigo: { border: "border-indigo-200", bg: "bg-indigo-50", header: "bg-indigo-600", badge: "bg-indigo-100 text-indigo-800" }, purple: { border: "border-purple-200", bg: "bg-purple-50", header: "bg-purple-600", badge: "bg-purple-100 text-purple-800" }, green: { border: "border-green-200", bg: "bg-green-50", header: "bg-green-600", badge: "bg-green-100 text-green-800" }, sky: { border: "border-sky-200", bg: "bg-sky-50", header: "bg-sky-600", badge: "bg-sky-100 text-sky-800" }, amber: { border: "border-amber-200", bg: "bg-amber-50", header: "bg-amber-500", badge: "bg-amber-100 text-amber-800" } };
+            const cls = { indigo: { border: "border-indigo-200", bg: "bg-indigo-50", header: "bg-indigo-600", badge: "bg-indigo-100 text-indigo-800" }, purple: { border: "border-purple-200", bg: "bg-purple-50", header: "bg-purple-600", badge: "bg-purple-100 text-purple-800" }, green: { border: "border-green-200", bg: "bg-green-50", header: "bg-green-600", badge: "bg-green-100 text-green-800" }, sky: { border: "border-sky-200", bg: "bg-sky-50", header: "bg-sky-600", badge: "bg-sky-100 text-sky-800" }, amber: { border: "border-amber-200", bg: "bg-amber-50", header: "bg-amber-500", badge: "bg-amber-100 text-amber-800" }, teal: { border: "border-teal-200", bg: "bg-teal-50", header: "bg-teal-600", badge: "bg-teal-100 text-teal-800" } };
             const cl = cls[layer.color];
             return (
               <div key={i} className={`rounded-2xl border-2 ${cl.border} overflow-hidden`}>
