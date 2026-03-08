@@ -19,11 +19,13 @@ export default function App() {
       <div className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xl">🧠</span>
-            <div>
-              <p className="font-black text-indigo-700 text-sm leading-none">LearnAI BD</p>
-              <p className="text-gray-400 text-xs">Documentation</p>
-            </div>
+            <a href="/" className="flex items-center gap-2 text-inherit no-underline hover:opacity-90">
+              <span className="text-xl">🧠</span>
+              <div>
+                <p className="font-black text-indigo-700 text-sm leading-none">LearnAI BD</p>
+                <p className="text-gray-400 text-xs">Documentation</p>
+              </div>
+            </a>
           </div>
           <div className="flex gap-1">
             {PAGES.map((p) => (

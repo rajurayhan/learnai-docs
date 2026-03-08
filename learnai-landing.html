@@ -317,6 +317,8 @@
 <nav>
   <div class="logo">🧠 <a href="/" style="color:inherit;text-decoration:none;"><span>LearnAI BD</span></a></div>
   <div style="display:flex; align-items:center; gap:16px;">
+    <a href="/login" style="color:rgba(255,255,255,.8); font-size:.9rem; font-weight:600; text-decoration:none;">Login</a>
+    <a href="/register" style="background:linear-gradient(135deg,#4f46e5,#7c3aed); color:white; font-size:.85rem; font-weight:700; padding:8px 18px; border-radius:10px; text-decoration:none;">Register</a>
     <div class="nav-badge">🔥 Early Access খোলা আছে</div>
   </div>
 </nav>
@@ -695,14 +697,12 @@ function joinWaitlist() {
   if (!email || !email.includes('@')) { alert('Valid email দাও!'); return; }
   const btn = document.querySelector('.form-wrap .btn-join');
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
-  const webhookUrl = 'https://n8n.cloud.lhgdev.com/webhook/join-learnai-bd-wishlist';
-  fetch(webhookUrl, {
+  fetch('/wishlist', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({ email, name, source: 'hero' })
-  }).then(async r => {
-    const d = await r.json().catch(() => ({}));
-    if (r.ok || d.success) {
+  }).then(r => r.json()).then(d => {
+    if (d.success) {
       count = d.count != null ? d.count : count + 1;
       document.getElementById('cnt1').textContent = count.toLocaleString('bn-BD');
       document.getElementById('inputRow').style.display = 'none';
@@ -718,14 +718,12 @@ function joinBottom() {
   if (!email || !email.includes('@')) { alert('Valid email দাও!'); return; }
   const btn = document.querySelector('#bottomForm .btn-join');
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
-  const webhookUrl = 'https://n8n.cloud.lhgdev.com/webhook/join-learnai-bd-wishlist';
-  fetch(webhookUrl, {
+  fetch('/wishlist', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({ email, source: 'bottom' })
-  }).then(async r => {
-    const d = await r.json().catch(() => ({}));
-    if (r.ok || d.success) {
+  }).then(r => r.json()).then(d => {
+    if (d.success) {
       count = d.count != null ? d.count : count + 1;
       document.getElementById('cnt1').textContent = count.toLocaleString('bn-BD');
       document.getElementById('bottomForm').style.display = 'none';
